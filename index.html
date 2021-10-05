@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 2</title>
+</head>
+<body>
+  <!-- <h1>Hola Mundo</h1>
+  <input type="text" id="color">
+  <button onclick="changeColor()">Aceptar</button>
+  <div id="contenido">
+
+  </div> -->
+  <div id="contenedor">
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>target</th>
+          <th>capacity</th>
+          <th>category_id</th>
+          <th>name</th>
+        </tr>
+      </thead>
+      <tbody class="cuerpoTabla">
+        
+      </tbody>
+    </table>
+  </div>
+  
+</body>
+<!-- <script type="text/javascript">
+  const contenido = document.getElementById('contenido');
+  contenido.innerHTML = "Hola mundo 2";
+
+
+  function changeColor() {
+    const color = document.getElementById("color").value;
+    contenido.style.color=color;
+  }
+
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script type="text/javascript">
+    $(document).ready(function(){
+        $("#contenido").append("<p>Parrafo</p>");
+    });
+</script> -->
+<script>
+  function cargarTabla() {
+    $.ajax({
+      url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        var resultado ="";
+        response.items.forEach(function(item)  {
+          resultado+="<tr><td>"+item.id+"</td><td>";
+          resultado+=item.target+"</td><td>";
+          resultado+=item.capacity+"</td><td>";
+          resultado+=item.category_id+"</td><td>";
+          resultado+=item.name+"</td></tr>";
+        });
+        $('.cuerpoTabla').html(resultado);
+      },
+      error: function(xhr, status) {
+        console.log(xhr.responseText);
+      }, 
+      complete: function(xhr, status) {
+        console.log(xhr.responseText);
+      }
+    });
+  }
+  $(document).ready(function() {
+    cargarTabla();
+  });
+</script>
+</html>
