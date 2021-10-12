@@ -35,6 +35,7 @@
       <input id="name" type="text">
     </div>
     <button onclick="crearTabla()">Crear</button>
+    <button onclick="actualizarTabla()">Actualizar</button>
     <br/>
 
     <table>
@@ -106,6 +107,37 @@
     $.ajax({
       url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
       type: 'POST',
+      dataType: 'json',
+      data: {
+        id:id,
+        target:target,
+        capacity:capacity,
+        category_id:category_id,
+        name:name
+      },
+      success: function(response) {
+        console.log(response);
+        
+      },
+      error: function(xhr, status) {
+        console.log(xhr.responseText);
+      }, 
+      complete: function(xhr, status) {
+        cargarTabla();
+        console.log(xhr.responseText);
+      }
+
+    });
+  }
+  function actualizarTabla() {
+    var id= $("#id").val();
+    var target= $("#target").val();
+    var capacity= $("#capacity").val();
+    var category_id= $("#category_id").val();
+    var name= $("#name").val();
+    $.ajax({
+      url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
+      type: 'PUT',
       dataType: 'json',
       data: {
         id:id,
