@@ -35,7 +35,8 @@
       <input id="name" type="text">
     </div>
     <button onclick="crearTabla()">Crear</button>
-    <button onclick="actualizarTabla()">Actualizar</button>
+    <button onclick="actualizar()">Actualizar</button>
+    <button onclick="eliminar()">Borrar</button>
     <br/>
 
     <table>
@@ -129,23 +130,43 @@
 
     });
   }
-  function actualizarTabla() {
-    var id= $("#id").val();
-    var target= $("#target").val();
-    var capacity= $("#capacity").val();
-    var category_id= $("#category_id").val();
-    var name= $("#name").val();
+  function actualizar() {
+    let myData = {
+      id: $("#id").val(),
+      target: $("#target").val(),
+      capacity: $("#capacity").val(),
+      category_id: $("#category_id").val(),
+      name: $("#name").val()
+    }
+    let dataToSend = JSON.stringify(myData);
     $.ajax({
       url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
       type: 'PUT',
-      dataType: 'json',
-      data: {
-        id:id,
-        target:target,
-        capacity:capacity,
-        category_id:category_id,
-        name:name
+      data: dataToSend,
+      contentType: 'application/json',
+      dataType: 'JSON',
+      success: function(response) {
+  
+        console.log(response);
+        
       },
+      error: function(xhr, status) {
+        console.log(xhr.responseText);
+      }, 
+      complete: function(xhr, status) {
+        cargarTabla();
+        console.log(xhr.responseText);
+      }
+
+    });
+  }
+  function eliminar() {
+    var id= $("#id").val();
+    $.ajax({
+      url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
+      type: 'DELETE',
+      dataType: 'json',
+      data: "{'id':id}",
       success: function(response) {
         console.log(response);
         
