@@ -161,12 +161,18 @@
     });
   }
   function eliminar() {
-    var id= $("#id").val();
+    let myData = {
+      id: $("#id").val()
+    };
+    // var id= $("#id").val();
+    let dataToSend = JSON.stringify(myData);
     $.ajax({
       url: 'https://g5417ca5525e850-db202109252351.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/library/library',
       type: 'DELETE',
+      data: dataToSend,
+      contentType: 'application/json',
       dataType: 'json',
-      data: "{'id':id}",
+      // data: "{'id':id}",
       success: function(response) {
         console.log(response);
         
